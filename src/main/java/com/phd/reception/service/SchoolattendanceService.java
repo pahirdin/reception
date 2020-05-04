@@ -14,5 +14,7 @@ import java.util.List;
 public interface SchoolattendanceService extends IService<Schoolattendance> {
     List<Schoolattendance> queryThisTime(List<Integer> couid);
 
+    Integer getCidBySaid(Long said);
+
 //    Page<Schoolattendance> getSchoolattendance(Integer page, Integer limit, Integer aid);
 }

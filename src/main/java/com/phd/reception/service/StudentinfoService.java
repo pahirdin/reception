@@ -3,6 +3,8 @@ package com.phd.reception.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.phd.reception.entity.Studentinfo;
 
+import java.util.List;
+
 /**
  * (Studentinfo)表服务接口
  *
@@ -12,4 +14,8 @@ import com.phd.reception.entity.Studentinfo;
 public interface StudentinfoService extends IService<Studentinfo> {
 
     Studentinfo loginCheckStudent(String ano, String apwd);
+
+    String getSnameBySid(Integer sid);
+
+    List<Studentinfo> queryListByCid(Integer cid);
 }

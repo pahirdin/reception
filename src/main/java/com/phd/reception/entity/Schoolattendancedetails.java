@@ -1,7 +1,6 @@
 package com.phd.reception.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 
 /**
  * 上课考勤详情表(Schoolattendancedetails)表实体类
@@ -14,7 +13,7 @@ public class Schoolattendancedetails extends Model<Schoolattendancedetails> {
     //考勤详情id
     private Integer sadid;
     //考勤id
-    private Integer said;
+    private Long said;
     //课程id
     private Integer couid;
     //学生id
@@ -35,11 +34,11 @@ public class Schoolattendancedetails extends Model<Schoolattendancedetails> {
         this.sadid = sadid;
     }
 
-    public Integer getSaid() {
+    public Long getSaid() {
         return said;
     }
 
-    public void setSaid(Integer said) {
+    public void setSaid(Long said) {
         this.said = said;
     }
 

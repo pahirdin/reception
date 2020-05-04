@@ -38,7 +38,7 @@
                     <div class="layui-card-body">
                         <div class="layui-form layui-col-space5">
                             <div class="layui-input-inline">
-                                <select name="college" id="college" lay-filter="sales"  lay-search="">
+                                <select name="timss" id="timss" lay-filter="sales"  lay-search="">
                                     <option value="">请选择时间</option>
                                     <option th:each="c,stat:${tims}" th:value="${c.said}" th:text="${c.satime}"></option>
                                 </select>
@@ -67,7 +67,7 @@
             //方法级渲染
             table.render({
                 elem: '#LAY_table_user'
-                ,url: '/getAdminInfo'
+                ,url: '/getStudentAttendance'
                 // ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
                 //     title: '提示'
                 //     ,layEvent: 'LAYTABLE_TIPS'
@@ -78,14 +78,9 @@
                 ,toolbar: '#toolbarDemo' //表头工具栏
                 ,cols: [[
                     // {checkbox: true, fixed: true}
-                    {title: '编号',templet: '#indexTpl'}
-                    ,{field:'aid', title: 'ID',  fixed: true}
-                    ,{field:'aname', title: '姓名'}
-                    ,{field:'ano', title: '工号'}
-                    ,{field:'atel', title: '手机号'}
-                    ,{field:'coname', title: '学院'}
-                    ,{field:'roles',title:'拥有权限',width:420}
-                    ,{fixed: 'right', title:'权限管理', toolbar: '#barDemo', width:150}
+                    {field:'couname', title: '课程名称',  fixed: true}
+                    ,{field:'sname', title: '学生姓名'}
+                    ,{field:'sadstatus', title: '状态'}
                 ]]
                 ,id: 'testReload'
                 ,page: true
@@ -110,9 +105,7 @@
             });
             var $ = layui.$, active = {
                 reload: function(){
-                    var demoReload = $('#demoReload');
-                    var college = $('#college');
-                    var role = $('#role');
+                    var timss = $('#timss');
 
                     //执行重载
                     table.reload('testReload', {
@@ -120,9 +113,7 @@
                             curr: 1 //重新从第 1 页开始
                         }
                         ,where: {
-                            name: demoReload.val()
-                            ,college:college.val()
-                            ,role:role.val()
+                            timss: timss.val()
                         }
                     }, 'data');
                 }

@@ -1,10 +1,17 @@
 package com.phd.reception.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.phd.reception.entity.Schoolattendancedetails;
 import com.phd.reception.mapper.SchoolattendancedetailsMapper;
 import com.phd.reception.service.SchoolattendancedetailsService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * 上课考勤详情表(Schoolattendancedetails)表服务实现类
@@ -14,5 +21,32 @@ import org.springframework.stereotype.Service;
  */
 @Service("schoolattendancedetailsService")
 public class SchoolattendancedetailsServiceImpl extends ServiceImpl<SchoolattendancedetailsMapper, Schoolattendancedetails> implements SchoolattendancedetailsService {
+
+    @Resource
+    private SchoolattendancedetailsMapper schoolattendancedetailsMapper;
+    @Override
+    public Page<Map<String, Object>> getStudentAttendance(Long said, Integer page, Integer limit) {
+        Page<Map<String, Object>> mapPage = new Page<>(page,limit);
+        LambdaQueryWrapper<Schoolattendancedetails> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendancedetails::getSaid, said);
+        return this.schoolattendancedetailsMapper.selectMapsPage(mapPage,queryWrapper);
+    }
+
+    @Override
+    public Schoolattendancedetails queryBeanBySaidAndState(Integer sid,Long said) {
+        LambdaQueryWrapper<Schoolattendancedetails> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendancedetails::getSid, sid)
+                .eq(Schoolattendancedetails::getSaid, said);
+        return this.schoolattendancedetailsMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public int updateStateBySaidAndCid(Long said, Integer sid, Object state) {
+        LambdaUpdateWrapper<Schoolattendancedetails> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.eq(Schoolattendancedetails::getSaid, said)
+                .eq(Schoolattendancedetails::getSid, sid)
+                .set(Schoolattendancedetails::getSadstatus, state);
+        return this.schoolattendancedetailsMapper.update(null, updateWrapper);
+    }
 
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 public class Studentinfo extends Model<Studentinfo> {
     //学生id
-    private String sid;
+    private Integer sid;
     //学生学号(账号)
     private String sno;
     //学生姓名

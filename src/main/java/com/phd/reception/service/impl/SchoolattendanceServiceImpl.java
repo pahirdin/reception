@@ -32,9 +32,16 @@ public class SchoolattendanceServiceImpl extends ServiceImpl<SchoolattendanceMap
     public List<Schoolattendance> queryThisTime(List<Integer> couid) {
         LambdaQueryWrapper<Schoolattendance> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.in(Schoolattendance::getCouid, couid)
-                .orderByDesc(Schoolattendance::getSatime);
-//        .last(" LIMIT 10 OFFSET 0");
+                .orderByDesc(Schoolattendance::getSatime)
+        .last(" LIMIT 10 OFFSET 0");
         return this.schoolattendanceMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public Integer getCidBySaid(Long said) {
+        LambdaQueryWrapper<Schoolattendance> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendance::getSaid, said);
+        return this.schoolattendanceMapper.selectOne(queryWrapper).getCid();
     }
 
 

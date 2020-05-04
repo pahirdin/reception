@@ -1,9 +1,12 @@
 package com.phd.reception.controller;
 
 import com.phd.reception.entity.Studentinfo;
+import com.phd.reception.service.ClassesService;
+import com.phd.reception.service.SchoolattendanceService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,15 +16,21 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class UserController {
-
+    @Resource
+    private SchoolattendanceService schoolattendanceService;
+    @Resource
+    private ClassesService classesService;
     @RequestMapping("/getQrCode")
     public String getQrCode(HttpServletRequest request, Long said) {
         if (checkStudentSession(request)){
             return "/login/login.html";
         }
-        return "/login/indexStu.html";
+        Integer cid = schoolattendanceService.getCidBySaid(said);
+        String couname = classesService.getClassesNameById(cid);
+        request.setAttribute("couname",couname);
+        request.setAttribute("said",said);
+        return "/student/confirmQeCode.html";
     }
-
 
     private boolean checkStudentSession(HttpServletRequest request) {
         HttpSession session = request.getSession();

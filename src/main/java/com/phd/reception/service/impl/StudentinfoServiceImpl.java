@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Studentinfo)表服务实现类
@@ -31,4 +32,19 @@ public class StudentinfoServiceImpl extends ServiceImpl<StudentinfoMapper, Stude
         .eq("SPWD",ss);
         return this.studentinfoMapper.selectOne(query);
     }
+
+    @Override
+    public String getSnameBySid(Integer sid) {
+        LambdaQueryWrapper<Studentinfo> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Studentinfo::getSid,sid);
+        return (String) this.studentinfoMapper.selectOne(queryWrapper).getSname();
+    }
+
+    @Override
+    public List<Studentinfo> queryListByCid(Integer cid) {
+        LambdaQueryWrapper<Studentinfo> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Studentinfo::getCid, cid);
+        return this.studentinfoMapper.selectList(queryWrapper);
+    }
+
 }
