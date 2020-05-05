@@ -1,6 +1,7 @@
 package com.phd.reception.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
 
 /**
  * 上课考勤详情表(Schoolattendancedetails)表实体类
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  * @since 2020-05-01 16:48:31
  */
 @SuppressWarnings("serial")
+@Data
 public class Schoolattendancedetails extends Model<Schoolattendancedetails> {
     //考勤详情id
     private Integer sadid;
@@ -21,65 +23,8 @@ public class Schoolattendancedetails extends Model<Schoolattendancedetails> {
     //学生是否签到(0未签到,缺勤 1已签到 2请假)
     private Object sadstatus;
     //学生签到时间
-    private Object sadtime;
+    private Integer sadtime;
     //签到地点
     private String sadaddress;
-
-
-    public Integer getSadid() {
-        return sadid;
-    }
-
-    public void setSadid(Integer sadid) {
-        this.sadid = sadid;
-    }
-
-    public Long getSaid() {
-        return said;
-    }
-
-    public void setSaid(Long said) {
-        this.said = said;
-    }
-
-    public Integer getCouid() {
-        return couid;
-    }
-
-    public void setCouid(Integer couid) {
-        this.couid = couid;
-    }
-
-    public Integer getSid() {
-        return sid;
-    }
-
-    public void setSid(Integer sid) {
-        this.sid = sid;
-    }
-
-    public Object getSadstatus() {
-        return sadstatus;
-    }
-
-    public void setSadstatus(Object sadstatus) {
-        this.sadstatus = sadstatus;
-    }
-
-    public Object getSadtime() {
-        return sadtime;
-    }
-
-    public void setSadtime(Object sadtime) {
-        this.sadtime = sadtime;
-    }
-
-    public String getSadaddress() {
-        return sadaddress;
-    }
-
-    public void setSadaddress(String sadaddress) {
-        this.sadaddress = sadaddress;
-    }
 
 }

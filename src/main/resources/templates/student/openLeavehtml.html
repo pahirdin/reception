@@ -1,0 +1,123 @@
+<html class="x-admin-sm" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>考勤管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" th:href="@{/X-admin/css/font.css}">
+    <link rel="stylesheet" th:href="@{/X-admin/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{/X-admin/css/theme5.css}">
+    <script th:src="@{/X-admin/lib/layui/layui.js}" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/X-admin/js/xadmin.js}"></script>
+    <script th:src="@{/X-admin/js/jquery.min.js}" charset="utf-8"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <form class="layui-card layui-form">
+                <div class="layui-card-header">请假表单</div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">开始时间</label>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <input class="layui-input"  lay-verify="required" autocomplete="off" name="start" id="start">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-inline"  style="width: 200px;">
+                        <input class="layui-input"  lay-verify="required" autocomplete="off" name="end" id="end">
+                    </div>
+                </div>
+                <div class="layui-form-item"  lay-filter="component-form-element">
+                    <label class="layui-form-label">请假类别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="radio" value="0" title="事假" checked>
+                        <input type="radio" name="radio" value="1" title="病假">
+                        <input type="radio" name="radio" value="2" title="其它"  >
+                    </div>
+                </div>
+                <br>
+                <div class="layui-inline">
+                    <div class="layui-form-label">请假理由</div>
+                    <div class="layui-input-inline" style="width: 200px;">
+                        <textarea name="lcontent" id="lcontent"  lay-verify="required" placeholder="请输入" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="component-form-element">立即提交</button>
+                    <button type="reset" id="submit" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    layui.use('laydate',
+    function() {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+            ,type: 'datetime'
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+            ,type: 'datetime'
+        });
+
+    });
+
+
+    $(function  () {
+        layui.use('form', function(){
+            var form = layui.form;
+            form.render();
+
+            form.on('submit(component-form-element)', function(data){
+                var lcontent = $("#lcontent").val();
+                var start = $("#start").val();
+                var end = $("#end").val();
+                var radio = $("input[type='radio']:checked").val();
+               if (lcontent=="" || start=="" || end=="") {
+                   layer.msg("请填写表单");
+                   return false;
+               }
+                $.ajax({
+                    url: '/addLeave',
+                    type: "post",
+                    data: {action: 'js_type', lcontent: lcontent,start:start,end:end,radio:radio},
+                    async: false,
+                    success: function (data) {
+                        layer.msg("申请成功！！",{icon:1},{time:1500});
+                        setTimeout(function(){
+                            window.parent.layer.closeAll();//关闭弹窗
+                        },1500);
+                    },
+                    error: function () {
+                        layer.msg('读取失败！');
+                    }
+                });
+            });
+        });
+    })
+
+</script>
+</body>
+</html>

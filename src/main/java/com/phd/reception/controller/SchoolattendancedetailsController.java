@@ -59,9 +59,7 @@ public class SchoolattendancedetailsController extends ApiController {
             datum.put("couname", this.courseService.getCounameByCouid((Integer) datum.get("couid")));
             String sid = this.studentinfoService.getSnameBySid((Integer) datum.get("sid"));
             datum.put("sname", sid);
-            Object sadstatus = datum.get("sadstatus");
-            String sadstatus1 = getStatusName(Integer.parseInt(String.valueOf(sadstatus)));
-            datum.put("sadstatus", sadstatus1);
+            datum.put("sadstatus", getStatusName(Integer.parseInt(String.valueOf(datum.get("sadstatus")))));
         }
         resultMap.setData(data);
         return resultMap;
@@ -92,6 +90,27 @@ public class SchoolattendancedetailsController extends ApiController {
                 return "200";
             }
         }
+    }
+
+    @RequestMapping("/queryStudentAttendance")
+    @ResponseBody
+    public ResultMap queryStudentAttendance(HttpServletRequest request,Integer state, Integer page, Integer limit) {
+        HttpSession session = request.getSession();
+        Studentinfo student = (Studentinfo) session.getAttribute("student");
+        if (student == null) {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("/login/login.html");
+            return new ResultMap();
+        }
+        Page<Map<String, Object>> mapPage = this.schoolattendancedetailsService.queryStudentAttendance(student.getSid(),state,page,limit);
+        ResultMap resultMap = new ResultMap(mapPage);
+        List<Map<String, Object>> data = resultMap.getData();
+        for (Map<String, Object> datum : data) {
+            datum.put("couname", this.courseService.getCounameByCouid((Integer) datum.get("couid")));
+            datum.put("sadstatus", getStatusName(Integer.parseInt(String.valueOf(datum.get("sadstatus")))));
+        }
+        resultMap.setData(data);
+        return resultMap;
     }
 
 }

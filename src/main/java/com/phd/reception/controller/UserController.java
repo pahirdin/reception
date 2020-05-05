@@ -31,6 +31,27 @@ public class UserController {
         request.setAttribute("said",said);
         return "/student/confirmQeCode.html";
     }
+    @RequestMapping("/attendanceMgr")
+    private String attendanceMgr(HttpServletRequest request) {
+        if (checkStudentSession(request)){
+            return "/login/login.html";
+        }
+        return "/student/attendanceMgr.html";
+    }
+    @RequestMapping("/leaveMgr")
+    private String leaveMgr(HttpServletRequest request) {
+        if (checkStudentSession(request)){
+            return "/login/login.html";
+        }
+        return "/student/leaveMgr.html";
+    }
+    @RequestMapping("/openLeavehtml")
+    private String openLeavehtml(HttpServletRequest request) {
+        if (checkStudentSession(request)){
+            return "/login/login.html";
+        }
+        return "/student/openLeavehtml.html";
+    }
 
     private boolean checkStudentSession(HttpServletRequest request) {
         HttpSession session = request.getSession();

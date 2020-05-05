@@ -11,6 +11,7 @@ import com.phd.reception.service.SchoolattendancedetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
@@ -45,8 +46,22 @@ public class SchoolattendancedetailsServiceImpl extends ServiceImpl<Schoolattend
         LambdaUpdateWrapper<Schoolattendancedetails> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(Schoolattendancedetails::getSaid, said)
                 .eq(Schoolattendancedetails::getSid, sid)
-                .set(Schoolattendancedetails::getSadstatus, state);
+                .set(Schoolattendancedetails::getSadstatus, state)
+                .set(Schoolattendancedetails::getSadtime, LocalDateTime.now());
         return this.schoolattendancedetailsMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public Page<Map<String, Object>> queryStudentAttendance(Integer sid, Integer state, Integer page, Integer limit) {
+        Page<Map<String, Object>> mapPage = new Page<>(page,limit);
+
+        LambdaQueryWrapper<Schoolattendancedetails> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendancedetails::getSid, sid);
+        if(state != null){
+            queryWrapper.eq( Schoolattendancedetails::getSadstatus, state);
+        }
+        queryWrapper.orderByDesc(Schoolattendancedetails::getSadtime);
+        return this.schoolattendancedetailsMapper.selectMapsPage(mapPage,queryWrapper);
     }
 
 }
