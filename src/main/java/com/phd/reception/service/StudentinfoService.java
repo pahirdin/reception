@@ -18,4 +18,8 @@ public interface StudentinfoService extends IService<Studentinfo> {
     String getSnameBySid(Integer sid);
 
     List<Studentinfo> queryListByCid(Integer cid);
+
+    Integer queryClassesCount(Integer cid);
+
+    List<Studentinfo> queryListByCouidAndWarnumm(Integer couid, Integer awarnumm);
 }

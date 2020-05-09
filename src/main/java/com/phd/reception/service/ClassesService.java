@@ -12,4 +12,6 @@ import com.phd.reception.entity.Classes;
 public interface ClassesService extends IService<Classes> {
 
     String getClassesNameById(Integer cid);
+
+    Classes queryClasesBycid(Integer cid);
 }

@@ -1,5 +1,6 @@
 package com.phd.reception.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,6 +28,13 @@ public class AdmininfoServiceImpl extends ServiceImpl<AdmininfoMapper, Admininfo
     public Admininfo loginCheckAdmin(String ano, String apwd) {
         QueryWrapper<Admininfo> query = Wrappers.query();
         query.eq("ANO", ano).eq("APWD", DigestUtils.md5DigestAsHex(apwd.getBytes()));
+        return this.admininfoMapper.selectOne(query);
+    }
+
+    @Override
+    public Admininfo queryListById(String aid) {
+        LambdaQueryWrapper<Admininfo> query = Wrappers.lambdaQuery();
+        query.eq(Admininfo::getAid, aid);
         return this.admininfoMapper.selectOne(query);
     }
 

@@ -21,4 +21,6 @@ public interface SchoolattendancedetailsService extends IService<Schoolattendanc
     int updateStateBySaidAndCid(Long said, Integer sid, Object state);
 
     Page<Map<String, Object>> queryStudentAttendance(Integer sid, Integer state, Integer page, Integer limit);
+
+    Integer querySainumBySaid(Long said);
 }

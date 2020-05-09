@@ -1,7 +1,10 @@
 package com.phd.reception.entity;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 上课考勤详情表(Schoolattendancedetails)表实体类
@@ -21,9 +24,10 @@ public class Schoolattendancedetails extends Model<Schoolattendancedetails> {
     //学生id
     private Integer sid;
     //学生是否签到(0未签到,缺勤 1已签到 2请假)
-    private Object sadstatus;
+    private Integer sadstatus;
     //学生签到时间
-    private Integer sadtime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime sadtime;
     //签到地点
     private String sadaddress;
 

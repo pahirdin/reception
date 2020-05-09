@@ -13,9 +13,11 @@ import java.util.List;
  */
 public interface CourseService extends IService<Course> {
 
-    List<Course> queryList(Integer aid);
+    List<Course> queryList(String aid);
 
     String getCounameByCouid(Integer couid);
 
-    List<Integer> getCouidList(Integer aid);
+    List<Integer> getCouidList(String aid);
+
+    Course queryListByCouid(Integer couid);
 }

@@ -19,5 +19,5 @@ public interface CourseMapper extends BaseMapper<Course> {
     String getCounameByCouid(@Param("couid") Integer couid);
 
     @Select("SELECT COUID FROM COURSE WHERE AID=#{aid}")
-    List<Integer> getCouidList(@Param("aid") Integer aid);
+    List<Integer> getCouidList(@Param("aid") String aid);
 }

@@ -24,7 +24,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Resource
     private CourseMapper courseMapper;
     @Override
-    public List<Course> queryList(Integer aid) {
+    public List<Course> queryList(String aid) {
         QueryWrapper<Course> query = Wrappers.query();
         query.eq("AID", aid);
         return this.courseMapper.selectList(query);
@@ -38,8 +38,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     }
 
     @Override
-    public List<Integer> getCouidList(Integer aid) {
+    public List<Integer> getCouidList(String aid) {
         return this.courseMapper.getCouidList(aid);
+    }
+
+    @Override
+    public Course queryListByCouid(Integer couid) {
+        LambdaQueryWrapper<Course> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Course::getCouid, couid);
+        return this.courseMapper.selectOne(queryWrapper);
     }
 
 }

@@ -25,7 +25,7 @@ public class Leave extends Model<Leave> {
     //请假理由
     private String lcontent;
     //审批人id
-    private Integer aid;
+    private String aid;
     //审批状态(0待审批 1批准 2拒绝)
     private Integer lstatus;
 

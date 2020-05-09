@@ -3,8 +3,6 @@ package com.phd.reception.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.phd.reception.entity.Admininfo;
 
-import java.util.List;
-
 /**
  * (Admininfo)表服务接口
  *
@@ -14,4 +12,6 @@ import java.util.List;
 public interface AdmininfoService extends IService<Admininfo> {
 
     Admininfo loginCheckAdmin(String ano, String apwd);
+
+    Admininfo queryListById(String aid);
 }

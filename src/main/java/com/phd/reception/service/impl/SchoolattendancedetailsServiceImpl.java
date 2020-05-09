@@ -64,4 +64,12 @@ public class SchoolattendancedetailsServiceImpl extends ServiceImpl<Schoolattend
         return this.schoolattendancedetailsMapper.selectMapsPage(mapPage,queryWrapper);
     }
 
+    @Override
+    public Integer querySainumBySaid(Long said) {
+        LambdaQueryWrapper<Schoolattendancedetails> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendancedetails::getSaid, said);
+        queryWrapper.eq(Schoolattendancedetails::getSadstatus, 1);
+        return this.schoolattendancedetailsMapper.selectCount(queryWrapper);
+    }
+
 }

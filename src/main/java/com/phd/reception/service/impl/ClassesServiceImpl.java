@@ -1,5 +1,7 @@
 package com.phd.reception.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.phd.reception.entity.Classes;
 import com.phd.reception.mapper.ClassesMapper;
@@ -22,5 +24,12 @@ public class ClassesServiceImpl extends ServiceImpl<ClassesMapper, Classes> impl
     @Override
     public String getClassesNameById(Integer cid) {
         return classesMapper.getClassesNameById(cid);
+    }
+
+    @Override
+    public Classes queryClasesBycid(Integer cid) {
+        LambdaQueryWrapper<Classes> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Classes::getCid, cid);
+        return this.classesMapper.selectOne(queryWrapper);
     }
 }

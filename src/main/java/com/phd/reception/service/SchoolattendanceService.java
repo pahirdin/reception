@@ -16,5 +16,11 @@ public interface SchoolattendanceService extends IService<Schoolattendance> {
 
     Integer getCidBySaid(Long said);
 
+    int cloesQrCode(Long said);
+
+    int updateByCloesQrCode(Schoolattendance schoolattendance);
+
+    Schoolattendance queryList(Long said);
+
 //    Page<Schoolattendance> getSchoolattendance(Integer page, Integer limit, Integer aid);
 }

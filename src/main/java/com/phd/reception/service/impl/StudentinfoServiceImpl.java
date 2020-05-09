@@ -47,4 +47,16 @@ public class StudentinfoServiceImpl extends ServiceImpl<StudentinfoMapper, Stude
         return this.studentinfoMapper.selectList(queryWrapper);
     }
 
+    @Override
+    public Integer queryClassesCount(Integer cid) {
+        LambdaQueryWrapper<Studentinfo> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Studentinfo::getCid, cid);
+        return this.studentinfoMapper.selectCount(queryWrapper);
+    }
+
+    @Override
+    public List<Studentinfo> queryListByCouidAndWarnumm(Integer couid, Integer awarnumm) {
+        return this.studentinfoMapper.queryListByCouidAndWarnumm(couid,awarnumm);
+    }
+
 }

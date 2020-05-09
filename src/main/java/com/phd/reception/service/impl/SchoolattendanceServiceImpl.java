@@ -1,6 +1,7 @@
 package com.phd.reception.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.phd.reception.entity.Schoolattendance;
@@ -11,6 +12,7 @@ import com.phd.reception.service.SchoolattendanceService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ import java.util.List;
  * @since 2020-05-01 16:48:31
  */
 @Service("schoolattendanceService")
+
 public class SchoolattendanceServiceImpl extends ServiceImpl<SchoolattendanceMapper, Schoolattendance> implements SchoolattendanceService {
     @Resource
     private SchoolattendanceMapper schoolattendanceMapper;
@@ -42,6 +45,32 @@ public class SchoolattendanceServiceImpl extends ServiceImpl<SchoolattendanceMap
         LambdaQueryWrapper<Schoolattendance> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(Schoolattendance::getSaid, said);
         return this.schoolattendanceMapper.selectOne(queryWrapper).getCid();
+    }
+
+    @Override
+    public int cloesQrCode(Long said) {
+        LambdaUpdateWrapper<Schoolattendance> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.eq(Schoolattendance::getSaid, said);
+        updateWrapper.set(Schoolattendance::getSatime, LocalDateTime.now());
+        return this.schoolattendanceMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int updateByCloesQrCode(Schoolattendance schoolattendance) {
+        LambdaUpdateWrapper<Schoolattendance> updateWrapper = Wrappers.lambdaUpdate();
+        updateWrapper.eq(Schoolattendance::getSaid, schoolattendance.getSaid());
+        updateWrapper.set(Schoolattendance::getSanum, schoolattendance.getSanum())
+                .set(Schoolattendance::getSainum, schoolattendance.getSainum())
+                .set(Schoolattendance::getSarate, schoolattendance.getSarate());
+
+        return this.schoolattendanceMapper.update(null,updateWrapper);
+    }
+
+    @Override
+    public Schoolattendance queryList(Long said) {
+        LambdaQueryWrapper<Schoolattendance> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(Schoolattendance::getSaid, said);
+        return this.schoolattendanceMapper.selectOne(queryWrapper);
     }
 
 

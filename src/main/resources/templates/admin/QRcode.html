@@ -108,7 +108,24 @@
                     layer.msg('请选择信息！');
                     return;
                 }
-                xadmin.open('二维码','/createQrCode?couid='+couid+'&cid='+cid,400,400);
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '二维码'
+                    ,area: ['400px', '400px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,content: '/createQrCode?couid='+couid+'&cid='+cid
+                    ,btn: ['关闭二维码'] //只是为了演示
+                    ,yes: function(){
+                        //向服务端发送删除指令
+                        $.ajax({
+                            url:'/cloesQrCode',
+                            type:'get'
+                        });
+                        layer.closeAll();
+                    }
+                });
+                // xadmin.open('二维码','/createQrCode?couid='+couid+'&cid='+cid,400,400);
             }
         };
 
