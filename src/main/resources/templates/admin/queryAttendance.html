@@ -75,7 +75,6 @@
                 // }]
                 ,defaultToolbar: ['filter', 'print', 'exports']
                 ,toolbar: true
-                ,toolbar: '#toolbarDemo' //表头工具栏
                 ,cols: [[
                     // {checkbox: true, fixed: true}
                     {field:'couname', title: '课程名称',  fixed: true}
@@ -159,15 +158,6 @@
         });
     </script>
 
-<!--表头工具栏-->
-    <script type="text/html" id="toolbarDemo">
-        <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="muban" id="muban">下载模板</button>
-<!--            <button class="layui-btn layui-btn-sm" lay-event="add" id="add">批量新增</button>-->
-            <button type="button" class="layui-btn" id="filename">批量新增
-<!--                <i class="layui-icon">&#xe67c;</i>-->
-            </button>
-        </div>
-    </script>
+
 </body>
 </html>

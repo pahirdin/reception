@@ -107,7 +107,7 @@ public class AdminController {
             //从配置文件读取需要生成二维码的连接
 //            String requestUrl = GraphUtils.getProperties("requestUrl");
             //requestUrl:需要生成二维码的连接，logoPath：内嵌图片的路径，os：响应输出流，needCompress:是否压缩内嵌的图片
-            QrCodeUtils.encode("http://192.168.1.108:8081/getQrCode?said="+said, "/static/img/phon.png", os, true);
+            QrCodeUtils.encode("http://172.20.10.2:8081/getQrCode?said="+said, "/static/img/phon.png", os, true);
         } catch (Exception e) {
             e.printStackTrace();
         }

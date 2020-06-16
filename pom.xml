@@ -11,6 +11,7 @@
     <groupId>com.phd</groupId>
     <artifactId>reception</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>reception</name>
     <description>Demo project for Spring Boot</description>
 
